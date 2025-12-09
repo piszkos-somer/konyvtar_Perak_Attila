@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
-
+const port = 3001;
 app.use(cors());
 app.use(express.json());
 
@@ -14,7 +14,28 @@ const db = mysql.createConnection({
     database: 'konyvtar'
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-    console.log(`A szerver fut: http://localhost:${PORT}`);
+app.get('/konyvek', (req, res) => {
+    const query = 'SELECT szerzo, cim, mufaj FROM konyvek'; 
+    db.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Hiba a lekérdezés során');
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+app.get('/olvasok', (req, res) => {
+    const query = 'SELECT nev, osztaly FROM kolcsonzes'; 
+    db.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Hiba a lekérdezés során');
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+app.listen(port, () => {
+    console.log(`A szerver fut: http://localhost:${port}`);
 });
