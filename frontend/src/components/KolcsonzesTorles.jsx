@@ -6,11 +6,12 @@ const KolcsonzesTorles = () => {
   const [kivalasztott, setKivalasztott] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3001/olvasok")
+    fetch("http://localhost:3001/kolcsonzesek")
       .then(res => res.json())
       .then(data => setKolcsonzesek(data))
       .catch(err => console.error(err));
   }, []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

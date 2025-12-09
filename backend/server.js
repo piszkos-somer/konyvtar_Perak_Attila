@@ -41,7 +41,6 @@ app.post('/ujkonyv', (req, res) => {
 app.delete('/torles/:id', (req, res) => {
     const id = req.params.id;
 
-    // Először töröljük a kapcsolótáblából is!
     const torlesKapcsolo = "DELETE FROM konyvek_kolcsonzes WHERE kolcsonzes_id = ?";
     const torlesKolcsonzes = "DELETE FROM kolcsonzes WHERE kolcsonzes_id = ?";
 
@@ -87,17 +86,18 @@ app.post('/ujkolcsonzes', (req, res) => {
         }
     });
 });
-
-app.get('/olvasok', (req, res) => {
-    const query = 'SELECT nev, osztaly FROM kolcsonzes'; 
+app.get('/kolcsonzesek', (req, res) => {
+    const query = "SELECT kolcsonzes_id, nev, osztaly, datum FROM kolcsonzes";
     db.query(query, (err, results) => {
         if (err) {
-            res.status(500).send('Hiba a lekérdezés során');
+            console.error(err);
+            res.status(500).send("Hiba a kölcsönzések lekérése során");
         } else {
             res.json(results);
         }
     });
 });
+
 
 app.listen(port, () => {
     console.log(`A szerver fut: http://localhost:${port}`);

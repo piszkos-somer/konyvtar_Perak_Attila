@@ -3,8 +3,8 @@ import React from 'react';
 const Home = () => {
     return (
         <div>
-            <h1>Welcome to the Library</h1>
-            <p>Explore our collection, manage loans, and more.</p>
+            <h1>Üdv a tasnádi könyvtárban</h1>
+            <p>Fedezd fel kínálatunkban, és kölcsönözz még ma minimum!</p>
         </div>
     );
 };
